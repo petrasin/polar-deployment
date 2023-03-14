@@ -6,8 +6,8 @@ services:
     image: "catalog-service"
     container_name: "catalog-service"
     ports:
-      - 9001:9001
-      - 8001:8001
+      - "9001:9001"
+      - "8001:8001"
     environment:
       - BPL_JVM_THREAD_COUNT=50
       - BPL_DEBUG_ENABLED=true
@@ -21,8 +21,8 @@ services:
     image: "order-service"
     container_name: "order-service"
     ports:
-      - 9002:9002
-      - 8002:8002
+      - "9002:9002"
+      - "8002:8002"
     environment:
       - BPL_JVM_THREAD_COUNT=50
       - BPL_DEBUG_ENABLED=true
@@ -35,7 +35,7 @@ services:
     image: "postgres:14.4"
     container_name: "polar-postgres"
     ports: 
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
@@ -46,4 +46,12 @@ services:
     image: "redis:7.0"
     container_name: "polar-redis"
     ports:
-      - 6379:6379
+      - "6379:6379"
+  polar-rabbitmq:
+    image: "rabbitmq:3.10-management"
+    container_name: "polar-rabbitmq"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
