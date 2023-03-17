@@ -2,5 +2,6 @@ include('../../../../config-service/Tiltfile')
 include('../../../../dispatcher-service/Tiltfile')
 include('../../../../catalog-service/Tiltfile')
 include('../../../../order-service/Tiltfile')
+include('../../../../edge-service/Tiltfile')
 
 update_settings(max_parallel_updates=1)

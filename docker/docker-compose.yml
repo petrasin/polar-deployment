@@ -30,6 +30,7 @@ services:
       - SPRING_R2DBC_URL=r2dbc:postgresql://polar-postgres:5432/polardb_order
       - SPRING_FLYWAY_URL=jdbc:postgresql://polar-postgres:5432/polardb_order
       - POLAR_CATALOG_SERVICE_URI=http://catalog-service:9001
+      - SPRING_RABBITMQ_HOST=polar-rabbitmq
 
   dispatcher-service:
     depends_on:
@@ -44,6 +45,20 @@ services:
       - BPL_DEBUG_PORT=8002
       - SPRING_CLOUD_CONFIG_URI=http://config-service:8888
       - SPRING_RABBITMQ_HOST=polar-rabbitmq
+
+  edge-sercice:
+    image: edge-service
+    container_name: edge_service
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+    environment:
+      - BPL_DEBUG_ENABLED=true
+      - BPL_DEBUG_PORT=8000
+      - CATALOG_SERVICE_URL=http://catalog-service:9001
+      - ORDER_SERVICE_URL=http://order-service:9002
+      - SPRING_CLOUD_CONFIG_URI=http://config-service:8888
+      - SPRING_REDIS_HOST=polar-redis
 
   config-service:
     image: config-service
