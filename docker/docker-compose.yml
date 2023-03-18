@@ -46,7 +46,7 @@ services:
       - SPRING_CLOUD_CONFIG_URI=http://config-service:8888
       - SPRING_RABBITMQ_HOST=polar-rabbitmq
 
-  edge-sercice:
+  edge-service:
     image: edge-service
     container_name: edge_service
     ports:
@@ -97,3 +97,13 @@ services:
       - "15672:15672"
     volumes:
       - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+
+  polar-keycloak:
+    image: "quay.io/keycloak/keycloak:19.0"
+    container_name: "polar-keycloak"
+    command: start-dev
+    environment:
+      - KEYCLOAK_ADMIN=user
+      - KEYCLOAK_ADMIN_PASSWORD=password
+    ports:
+      - "8080:8080"
