@@ -59,6 +59,7 @@ services:
       - ORDER_SERVICE_URL=http://order-service:9002
       - SPRING_CLOUD_CONFIG_URI=http://config-service:8888
       - SPRING_REDIS_HOST=polar-redis
+      - SPA_URL=http://polar-ui:9004
 
   config-service:
     image: config-service
@@ -71,6 +72,13 @@ services:
       - BPL_DEBUG_ENABLED=true
       - BPL_DEBUG_PORT=9888
 
+  polar-ui:
+    image: "ghcr.io/polarbookshop/polar-ui:v1"
+    container_name: "polar_ui"
+    ports:
+      - "9004:9004"
+    environment:
+      - PORT=9004
 
   polar-postgres:
     image: "postgres:14.4"
